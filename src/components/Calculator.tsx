@@ -11,7 +11,6 @@ const Calculator: React.FC = () => {
 
     const calculate = (expression: string): string => {
         try {
-            // Проверяем на деление на ноль
             if (expression.includes('/0')) {
                 return "Ошибка: Деление на ноль";
             }
@@ -27,25 +26,20 @@ const Calculator: React.FC = () => {
     };
 
     const handleButtonClick = useCallback((value: string) => {
-        // Преобразуем ввод в строку для валидации
         const lastChar = input.charAt(input.length - 1);
 
-        // Прокачиваем логику, чтобы не вводить два нуля подряд
         if (value === '0' && lastChar === '0') {
-            return;  // Не разрешаем вводить два нуля подряд
+            return;  
         }
 
-        // Проверка на ввод двух одинаковых операторов подряд
         if (["+", "-", "*", "/"].includes(value) && ["+", "-", "*", "/"].includes(lastChar)) {
-            return;  // Не разрешаем вводить два оператора подряд
+            return; 
         }
 
-        // Проверка на ввод после точки (два знака после десятичной точки)
         if (value === '.' && lastChar === '.') {
-            return;  // Не разрешаем вводить несколько точек подряд
+            return; 
         }
 
-        // Добавляем символ в строку
         if (value === '=') {
             const evalResult = calculate(input);
             setResult(evalResult);
